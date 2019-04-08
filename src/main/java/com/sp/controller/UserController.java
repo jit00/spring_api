@@ -80,35 +80,22 @@ public class UserController {
 	}	
 		
 
-//	@RequestMapping(value = "/updateadminprofile", method = RequestMethod.PUT, headers = "Accept=application/json;charset=UTF-8")
-//	public ResponseEntity<?> updateDriver(@RequestBody Admin model) {
-//		
-//	
-//		Admin existingUser = admindao.findById(model.getUserId());
-//		if (existingUser == null) {
-//
-//			return new ResponseEntity<>(new CustomType("User Not Found"), HttpStatus.NOT_ACCEPTABLE);
-//		} else {
-//			
-//			
-//			
-//			existingUser.setFirstName(model.==null?existingUser.getFirstName():model.getUser().getFirstName());
-//			existingUser.setLastName(model.getUser().getLastName()==null?existingUser.getLastName():model.getUser().getLastName());
-//			existingUser.setMobileNo(model.getUser().getMobileNo()==null? existingUser.getMobileNo():model.getUser().getMobileNo());
-//			userdao.saveorupdateUser(existingUser);
-//			
-//  		    Driver driver=driverdao.findByUserId(user.getUserId());
-//			driver.setUser(existingUser);		
-//			driver.setAddress(model.getAddress()==null?driver.getAddress():model.getAddress());
-//			driver.setCity(model.getCity()==null?driver.getCity():model.getCity());
-//			driver.setCountry(model.getCountry()==null?driver.getCountry():model.getCountry());
-//			driver.setState(model.getState()==null?driver.getState():model.getState());
-//			driver.setZip(model.getZip()==null?driver.getZip():model.getZip());	
-//			driverdao.saveorupdateUser(driver);
-//			return new ResponseEntity<>(new CustomType("Profile Successfully Updated"), HttpStatus.OK);
-//		}
-//
-//	}
+	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT, headers = "Accept=application/json;charset=UTF-8")
+	public ResponseEntity<?> updateDriver(@RequestBody User model) {
+	
+		User existingUser = userdao.findById(model.getUserId());
+		if (existingUser == null) {
+
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+				
+			existingUser.setName(model.getName()==null?existingUser.getName():model.getName());
+			existingUser.setEmail(model.getEmail()==null?existingUser.getEmail():model.getEmail());
+			userdao.saveorupdateUser(existingUser);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+
+	}
 	
 	
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE,headers = "Accept=application/json")

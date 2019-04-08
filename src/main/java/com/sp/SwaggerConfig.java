@@ -29,12 +29,11 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("FlyApp API")
-				.description("Welcome To FlyApp")
+		return new ApiInfoBuilder().title("Spring API")
+				.description("API")
 				.termsOfServiceUrl("http://javainuse.com")
 				.contact("").license("")
 				.licenseUrl("").version("1.0").build();
 	}
-	//comment
-
+	
 }
