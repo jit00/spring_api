@@ -167,13 +167,15 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "/addUserAddon", method = RequestMethod.POST, headers = "Accept=application/json;charset=UTF-8")
-	public ResponseEntity<?> addUserAddon(@RequestBody List<UserAddOnListModel> model)  {
+	@RequestMapping(value = "/addEditUserAddon", method = RequestMethod.POST, headers = "Accept=application/json;charset=UTF-8")
+	public ResponseEntity<?> addEditUserAddon(@RequestBody List<UserAddOnListModel> model)  {
 	
 	for(int i=0; i<model.size();i++) {
 		
 		User us= userdao.findById(model.get(i).getUserId());
 		AddOn Obj = addondao.findById(model.get(i).getAddOnId());
+		
+		if(model.get(i).getName()==null && model.get(i).getAddonName()==null) {
 		
 		UserAddOn uaddon = new UserAddOn();
 		uaddon.setUser(us);
@@ -181,35 +183,29 @@ public class UserController {
 		uaddon.setUserName(us.getName());
 		uaddon.setUseraddonName(Obj.getAddonName());
 		uaddondao.save(uaddon);
-		
-		
+		}
+		else {
+			
+			us.setName(model.get(i).getName()==null?us.getName():model.get(i).getName());
+			userdao.saveorupdateUser(us);
+			Obj.setAddonName(model.get(i).getAddonName()==null?Obj.getAddonName():model.get(i).getAddonName());
+			addondao.saveorupdate(Obj);
+			
+			UserAddOn uaddon = uaddondao.findByuserIdandaddonId(model.get(i).getUserId(),model.get(i).getAddOnId());
+			if(uaddon!=null) {
+			uaddon.setUser(us);
+			uaddon.setAddon(Obj);
+			uaddon.setUserName(model.get(i).getName());
+			uaddon.setUseraddonName(model.get(i).getAddonName());
+			uaddondao.saveorupdate(uaddon);
+			}
+			
+			
+		}
 	}
 	
-//		if (Obj == null) {
-//
-//			try {
-//				
-//				addondao.save(model);
-//				
-//				
-//				//Admin userdata=admindao.findByEmail(model.getEmail());	
-//			   
-//				
-//			    return new ResponseEntity<>(model, HttpStatus.CREATED);		
-//				
-//			} catch (Exception e) {
-//
-//				e.printStackTrace();
-//				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//			}
-//				
-//	
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.CONFLICT);
-//
-//		}
 	return new ResponseEntity<>(HttpStatus.CREATED);
+	
 		
 	}	
 	
