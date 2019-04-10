@@ -183,6 +183,7 @@ public class UserController {
 		uaddon.setUserName(us.getName());
 		uaddon.setUseraddonName(Obj.getAddonName());
 		uaddondao.save(uaddon);
+		return new ResponseEntity<>(uaddon,HttpStatus.CREATED);	
 		}
 		else {
 			
@@ -202,8 +203,9 @@ public class UserController {
 		    uadd.setUserName(model.get(i).getName());
 			uadd.setUseraddonName(model.get(i).getAddonName());
 			uaddondao.saveorupdate(uadd);
+			return new ResponseEntity<>(uadd,HttpStatus.CREATED);
 			}
-			
+		
 			
 		}
 	}
