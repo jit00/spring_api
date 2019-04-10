@@ -41,42 +41,40 @@ public class UserController {
 	public ResponseEntity<?> addUser(@RequestBody User model)  {
 		
 		
-		User u = new User();
-		u.setUserId(model.getUserId());
-		u.setName(model.getName());
-		u.setEmail(model.getEmail());
-		  Gson gson = new Gson();
-	        String json = gson.toJson(u);
-	        
-	        try (FileWriter writer = new FileWriter("src/main/resources/users.json")) {
-
-	            gson.toJson(u, writer);
-
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        
-	        return new ResponseEntity<>(u,HttpStatus.CREATED);
-      
-//		User userObj = userdao.findByEmail(model.getEmail());
-//		if (userObj == null) {
+//		User u = new User();
+//		u.setUserId(model.getUserId());
+//		u.setName(model.getName());
+//		u.setEmail(model.getEmail());
+//		  Gson gson = new Gson();
+//	        String json = gson.toJson(u);
+//	        
+//	        try (FileWriter writer = new FileWriter("src/main/resources/users.json")) {
 //
-//			try {
-//				
-//				userdao.saveUser(model);
-//							
-//				//Admin userdata=admindao.findByEmail(model.getEmail());				
-//			    return new ResponseEntity<>(model, HttpStatus.CREATED);		
-//				
+//	            gson.toJson(u, writer);
+//
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+//	        
+//	        return new ResponseEntity<>(u,HttpStatus.CREATED);
+      
+		User userObj = userdao.findByEmail(model.getEmail());
+		if (userObj == null) {
+
+			//try {
+				
+				userdao.saveUser(model);				
+			    return new ResponseEntity<>(model, HttpStatus.CREATED);		
+				
 //			} catch (Exception e) {
 //
 //				e.printStackTrace();
 //				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 //			}
-//				
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.CONFLICT);
-//		}	
+				
+		} else {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}	
 	}	
 		
 
@@ -122,22 +120,19 @@ public class UserController {
 	AddOn Obj = addondao.findById(model.getAddonId());
 		if (Obj == null) {
 
-			try {
+			//try {
 				
 				addondao.save(model);
 				
 				
-				//Admin userdata=admindao.findByEmail(model.getEmail());	
-			   
-				
 			    return new ResponseEntity<>(model, HttpStatus.CREATED);		
 				
-			} catch (Exception e) {
-
-				e.printStackTrace();
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
-			}
+//			} catch (Exception e) {
+//
+//				e.printStackTrace();
+//				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//			}
 				
 	
 		} else {
@@ -146,6 +141,23 @@ public class UserController {
 		}
 		
 	}	
+	
+	
+	@RequestMapping(value = "/updateAddon", method = RequestMethod.PUT, headers = "Accept=application/json;charset=UTF-8")
+	public ResponseEntity<?> updateAddon(@RequestBody AddOn model) {
+	
+		AddOn existingAddon = addondao.findById(model.getAddonId());
+		if (existingAddon == null) {
+
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+				
+			existingAddon.setAddonName(model.getAddonName()==null?existingAddon.getAddonName():model.getAddonName());
+			addondao.saveorupdate(existingAddon);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+
+	}
 		
 	
 	@RequestMapping(value = "/deleteAddOn", method = RequestMethod.DELETE,headers = "Accept=application/json")
