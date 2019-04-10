@@ -1,5 +1,7 @@
 package com.sp.dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -52,21 +54,19 @@ public class UserAddOnDaoImpl implements UserAddOnDao {
 //	        return (User) criteria.uniqueResult();
 //	}
 	
-	public AddOn findById(int uaddonId) {
+	public UserAddOn findById(int uaddonId) {
 		  Criteria criteria = getSession().createCriteria(UserAddOn.class);
-	        criteria.add(Restrictions.eq("uaddonId", uaddonId));
+	        criteria.add(Restrictions.eq("useraddonId", uaddonId));
 	        UserAddOn e= (UserAddOn) criteria.uniqueResult();
 	        System.out.println(e);
-	        return (AddOn) criteria.uniqueResult();
+	        return (UserAddOn) criteria.uniqueResult();
 	}
 	
 	
-	  public UserAddOn findByuserIdandaddonId(int userId,int addonId) {
-		  Criteria criteria = getSession().createCriteria(User.class);
-		  Criteria criteria1 = getSession().createCriteria(AddOn.class);
-		  criteria.createAlias("user", "users").add(Restrictions.eq("users.userId", userId));
-		  criteria1.createAlias("addon", "addons").add(Restrictions.eq("addons.addonId", addonId));
-	        return (UserAddOn) criteria.uniqueResult();
+	  public UserAddOn findByuserId(int userid) {
+		  Criteria criteria = getSession().createCriteria(UserAddOn.class);
+		  criteria.createAlias("user","users").add(Restrictions.eq("users.userId", userid)); 
+		  return (UserAddOn) criteria.uniqueResult();
 	    }
 	
 	

@@ -191,13 +191,17 @@ public class UserController {
 			Obj.setAddonName(model.get(i).getAddonName()==null?Obj.getAddonName():model.get(i).getAddonName());
 			addondao.saveorupdate(Obj);
 			
-			UserAddOn uaddon = uaddondao.findByuserIdandaddonId(model.get(i).getUserId(),model.get(i).getAddOnId());
+			UserAddOn uaddon = uaddondao.findByuserId(model.get(i).getUserId());
+			System.out.println(uaddon.getUseraddonId());
+			System.out.println(uaddon.getUseraddonName());
 			if(uaddon!=null) {
-			uaddon.setUser(us);
-			uaddon.setAddon(Obj);
-			uaddon.setUserName(model.get(i).getName());
-			uaddon.setUseraddonName(model.get(i).getAddonName());
-			uaddondao.saveorupdate(uaddon);
+				
+		    UserAddOn uadd =uaddondao.findById(uaddon.getUseraddonId());
+		    uadd.setUser(us);
+		    uadd.setAddon(Obj);
+		    uadd.setUserName(model.get(i).getName());
+			uadd.setUseraddonName(model.get(i).getAddonName());
+			uaddondao.saveorupdate(uadd);
 			}
 			
 			
