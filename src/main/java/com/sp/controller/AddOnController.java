@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sp.dao.AddOnDao;
 import com.sp.model.AddOn;
 
+@RestController
+@RequestMapping("/api")
 public class AddOnController {
 
 	
@@ -40,7 +43,7 @@ public class AddOnController {
 	}	
 	
 	
-	@RequestMapping(value = "/updateAddon", method = RequestMethod.PUT, headers = "Accept=application/json;charset=UTF-8")
+	@RequestMapping(value = "/updateAddon", method = RequestMethod.POST, headers = "Accept=application/json;charset=UTF-8")
 	public ResponseEntity<?> updateAddon(@RequestBody AddOn model) {
 	
 		AddOn existingAddon = addondao.findById(model.getAddonId());

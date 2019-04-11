@@ -52,14 +52,7 @@ private List<UserAddOn> useraddon=new ArrayList<UserAddOn>();
 	}
 
 
-//	public List<AddOn> getAddon() {
-//		return addon;
-//	}
-//
-//
-//	public void setAddon(List<AddOn> addon) {
-//		this.addon = addon;
-//	}
+
 
 
 
