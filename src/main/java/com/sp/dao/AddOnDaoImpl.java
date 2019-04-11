@@ -25,7 +25,7 @@ public class AddOnDaoImpl implements AddOnDao {
 	
    
 	public AddOn save(AddOn addon) {
-    	getSession().persist(addon);
+    	getSession().save(addon);
 	        return addon;
 	}
 	
@@ -42,14 +42,7 @@ public class AddOnDaoImpl implements AddOnDao {
 	        return addon;
 	}
 	
-//	public User findByEmail(String email) {
-//		Criteria criteria = getSession().createCriteria(AddOn.class);
-//		  criteria.add(Restrictions.eq("email", email));
-//		  User e= (User) criteria.uniqueResult();
-//	        System.out.println(e);
-//	        return (User) criteria.uniqueResult();
-//	}
-	
+
 	public AddOn findById(int addonId) {
 		  Criteria criteria = getSession().createCriteria(AddOn.class);
 	        criteria.add(Restrictions.eq("addonId", addonId));

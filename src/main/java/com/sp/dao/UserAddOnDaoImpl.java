@@ -29,7 +29,7 @@ public class UserAddOnDaoImpl implements UserAddOnDao {
 	
    
 	public UserAddOn save(UserAddOn uaddon) {
-    	getSession().persist(uaddon);
+    	getSession().save(uaddon);
 	        return uaddon;
 	}
 	
@@ -46,13 +46,8 @@ public class UserAddOnDaoImpl implements UserAddOnDao {
 	        return uaddon;
 	}
 	
-//	public User findByEmail(String email) {
-//		Criteria criteria = getSession().createCriteria(AddOn.class);
-//		  criteria.add(Restrictions.eq("email", email));
-//		  User e= (User) criteria.uniqueResult();
-//	        System.out.println(e);
-//	        return (User) criteria.uniqueResult();
-//	}
+	
+	
 	
 	public UserAddOn findById(int uaddonId) {
 		  Criteria criteria = getSession().createCriteria(UserAddOn.class);

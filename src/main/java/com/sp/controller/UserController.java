@@ -61,16 +61,9 @@ public class UserController {
 		User userObj = userdao.findByEmail(model.getEmail());
 		if (userObj == null) {
 
-			//try {
-				
 				userdao.saveUser(model);				
 			    return new ResponseEntity<>(model, HttpStatus.CREATED);		
 				
-//			} catch (Exception e) {
-//
-//				e.printStackTrace();
-//				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//			}
 				
 		} else {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -112,69 +105,6 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/addAddon", method = RequestMethod.POST, headers = "Accept=application/json;charset=UTF-8")
-	public ResponseEntity<?> addUser(@RequestBody AddOn model)  {
-
-	
-		
-	AddOn Obj = addondao.findById(model.getAddonId());
-		if (Obj == null) {
-
-			//try {
-				
-				addondao.save(model);
-				
-				
-			    return new ResponseEntity<>(model, HttpStatus.CREATED);		
-				
-//			} catch (Exception e) {
-//
-//				e.printStackTrace();
-//				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//			}
-				
-	
-		} else {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-
-		}
-		
-	}	
-	
-	
-	@RequestMapping(value = "/updateAddon", method = RequestMethod.PUT, headers = "Accept=application/json;charset=UTF-8")
-	public ResponseEntity<?> updateAddon(@RequestBody AddOn model) {
-	
-		AddOn existingAddon = addondao.findById(model.getAddonId());
-		if (existingAddon == null) {
-
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-				
-			existingAddon.setAddonName(model.getAddonName()==null?existingAddon.getAddonName():model.getAddonName());
-			addondao.saveorupdate(existingAddon);
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-
-	}
-		
-	
-	@RequestMapping(value = "/deleteAddOn", method = RequestMethod.DELETE,headers = "Accept=application/json")
-	public ResponseEntity<?> deleteAddOn(@RequestParam int addonId) {
-		
-		AddOn Obj = addondao.findById(addonId);
-		if (Obj == null) {
-			
-
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} else {
-			
-			addondao.delete(addonId);
-
-			return new ResponseEntity<>(HttpStatus.GONE);
-		}
-	}
 	
 	
 	

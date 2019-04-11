@@ -26,7 +26,7 @@ public class User {
 	private String Name;
 	
 	@Column(name = "email", length = 255)
-	private String Email;
+	private String email;
 	
 @OneToMany(mappedBy="user", cascade=CascadeType.PERSIST)
 private List<UserAddOn> useraddon=new ArrayList<UserAddOn>();
@@ -62,13 +62,25 @@ private List<UserAddOn> useraddon=new ArrayList<UserAddOn>();
 //	}
 
 
+
+
+	public List<UserAddOn> getUseraddon() {
+		return useraddon;
+	}
+
+
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
+	}
+
+
+	public void setUseraddon(List<UserAddOn> useraddon) {
+		this.useraddon = useraddon;
 	}
 
 
