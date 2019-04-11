@@ -71,7 +71,7 @@ public class UserController {
 	}	
 		
 
-	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT, headers = "Accept=application/json;charset=UTF-8")
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST, headers = "Accept=application/json;charset=UTF-8")
 	public ResponseEntity<?> updateUser(@RequestBody User model) {
 	
 		User existingUser = userdao.findById(model.getUserId());
